@@ -25,6 +25,11 @@ namespace OopRestaurant.Models
         {
         }
 
+        /// <summary>
+        /// Menu table added tot the Identity database
+        /// </summary>
+        public DbSet<MenuItem> MenuItems { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
