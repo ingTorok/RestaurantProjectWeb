@@ -30,11 +30,11 @@ namespace OopRestaurant.Models
         /// </summary>
         public DbSet<MenuItem> MenuItems { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
-
-        public System.Data.Entity.DbSet<OopRestaurant.Models.Category> Categories { get; set; }
     }
 }

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<OopRestaurant.Models.MenuItem>
+
+@{
+    ViewBag.Title = "Index";
+    var category = "";
+}
+
+<h2>Menu</h2>
+
+
+@foreach (var menuItem in Model)
+{
+    if (category!=menuItem.Category.Name)
+    {
+        category = menuItem.Category.Name;
+        <h3>
+            @Html.DisplayFor(modelItem => menuItem.Category.Name)
+        </h3>
+    }
+
+    <h4>
+        @Html.DisplayFor(modelItem => menuItem.Name)
+     </h4>
+    <p>
+        @Html.DisplayFor(modelItem => menuItem.Description)
+    </p>
+    <p>
+        <strong>@Html.DisplayFor(modelItem => menuItem.Price)</strong>
+    </p>
+}
+
