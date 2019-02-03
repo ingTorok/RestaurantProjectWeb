@@ -174,8 +174,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MenuItemsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -187,8 +189,25 @@
     <Compile Include="Migrations\201902021119165_add MenuItem table.Designer.cs">
       <DependentUpon>201902021119165_add MenuItem table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902021139215_add Menuitem.Price column.cs" />
+    <Compile Include="Migrations\201902021139215_add Menuitem.Price column.Designer.cs">
+      <DependentUpon>201902021139215_add Menuitem.Price column.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902021141340_set Menuitem.Name column to required.cs" />
+    <Compile Include="Migrations\201902021141340_set Menuitem.Name column to required.Designer.cs">
+      <DependentUpon>201902021141340_set Menuitem.Name column to required.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902021148275_set Menuitem.Name maxlength to 200.cs" />
+    <Compile Include="Migrations\201902021148275_set Menuitem.Name maxlength to 200.Designer.cs">
+      <DependentUpon>201902021148275_set Menuitem.Name maxlength to 200.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902030929378_add Category table, and MenuItem.Category column.cs" />
+    <Compile Include="Migrations\201902030929378_add Category table, and MenuItem.Category column.Designer.cs">
+      <DependentUpon>201902030929378_add Category table, and MenuItem.Category column.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MenuItem.cs" />
@@ -251,6 +270,16 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\MenuItems\Create.cshtml" />
+    <Content Include="Views\MenuItems\Delete.cshtml" />
+    <Content Include="Views\MenuItems\Details.cshtml" />
+    <Content Include="Views\MenuItems\Edit.cshtml" />
+    <Content Include="Views\MenuItems\Index.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -274,6 +303,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902021119165_add MenuItem table.resx">
       <DependentUpon>201902021119165_add MenuItem table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902021139215_add Menuitem.Price column.resx">
+      <DependentUpon>201902021139215_add Menuitem.Price column.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902021141340_set Menuitem.Name column to required.resx">
+      <DependentUpon>201902021141340_set Menuitem.Name column to required.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902021148275_set Menuitem.Name maxlength to 200.resx">
+      <DependentUpon>201902021148275_set Menuitem.Name maxlength to 200.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902030929378_add Category table, and MenuItem.Category column.resx">
+      <DependentUpon>201902030929378_add Category table, and MenuItem.Category column.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

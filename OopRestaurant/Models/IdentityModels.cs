@@ -34,5 +34,7 @@ namespace OopRestaurant.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<OopRestaurant.Models.Category> Categories { get; set; }
     }
 }
