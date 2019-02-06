@@ -1,8 +1,12 @@
-﻿namespace OopRestaurant.Models
+﻿using System.Collections.Generic;
+
+namespace OopRestaurant.Models
 {
     public class Category
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public List<MenuItem> MenuItems { get; set; }
     }
 }

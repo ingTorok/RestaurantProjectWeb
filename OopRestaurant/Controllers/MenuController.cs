@@ -17,12 +17,19 @@ namespace OopRestaurant.Controllers
         // GET: Menu
         public ActionResult Index()
         {
-            var model = db.MenuItems
-                        //.Include("Category") - ha a tulajdonság nevét ismerjük, viszont nem dinamikus és csak futási idöben derül ki hogy pl elütés van, vagy a név megváltozott
-                          .Include(mi=>mi.Category)
-                          .OrderBy(mi => mi.Category.Name)
+            //var model = db.MenuItems
+            //            //.Include("Category") - ha a tulajdonság nevét ismerjük, viszont nem dinamikus és csak futási idöben derül ki hogy pl elütés van, vagy a név megváltozott
+            //              .Include(mi=>mi.Category)
+            //              .OrderBy(mi => mi.Category.Name)
+            //              .ToList();
+            //return View(model);
+
+            var model = db.Categories
+                          .Include(c => c.MenuItems)
+                          .OrderBy(c => c.Name)
                           .ToList();
-            return View(db.MenuItems.ToList());
+
+            return View(model);
         }
 
         // GET: Menu/Details/5
