@@ -46,7 +46,19 @@ namespace OopRestaurant.Controllers
         // GET: MenuItems/Create
         public ActionResult Create()
         {
-            return View();
+            var menuItem = new MenuItem();
+
+            FillAssignableCategories(menuItem);
+
+            return View(menuItem);
+        }
+
+        private void FillAssignableCategories(MenuItem menuItem)
+        {
+            foreach (var category in db.Categories.ToList())
+            {
+                menuItem.AssignableCategories.Add(new SelectListItem() { Text = category.Name, Value = category.Id.ToString() });
+            }
         }
 
         // POST: MenuItems/Create
@@ -55,14 +67,23 @@ namespace OopRestaurant.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Price")] MenuItem menuItem)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,CategoryId")] MenuItem menuItem)
         {
+            var category = db.Categories.Find(menuItem.CategoryId);
+
+            menuItem.Category = category;
+
+            ModelState.Clear();
+            var isValid = TryValidateModel(menuItem);
+
             if (ModelState.IsValid)
             {
                 db.MenuItems.Add(menuItem);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            FillAssignableCategories(menuItem);
 
             return View(menuItem);
         }
@@ -71,15 +92,23 @@ namespace OopRestaurant.Controllers
         [Authorize]
         public ActionResult Edit(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             MenuItem menuItem = db.MenuItems.Find(id);
+
             if (menuItem == null)
             {
                 return HttpNotFound();
             }
+
+            FillAssignableCategories(menuItem);
+
+            menuItem.CategoryId = menuItem.Category.Id;
+
             return View(menuItem);
         }
 
@@ -89,14 +118,31 @@ namespace OopRestaurant.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price")] MenuItem menuItem)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,CategoryId")] MenuItem menuItem)
         {
+            var category = db.Categories.Find(menuItem.CategoryId);
+
+            db.MenuItems.Attach(menuItem);
+
+            var menuItemEntry = db.Entry(menuItem);
+
+            menuItemEntry.Reference(x => x.Category)
+                         .Load();
+
+            menuItem.Category = category;
+
+            ModelState.Clear();
+            var isValid = TryValidateModel(menuItem);
+
+
             if (ModelState.IsValid)
             {
-                db.Entry(menuItem).State = EntityState.Modified;
+                menuItemEntry.State = EntityState.Modified;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(menuItem);
         }
 
