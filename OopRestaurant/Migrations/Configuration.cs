@@ -73,6 +73,22 @@ namespace OopRestaurant.Migrations
                 Category = category2
             });
 
+            //Locations
+            var loc1 = new Location { Name = "Nemdohanyzo terem", IsNonSmoking = true };
+            var loc2 = new Location { Name = "Dohanyzo terem", IsNonSmoking = false };
+            var loc3 = new Location { Name = "Terasz", IsNonSmoking = false };
+            context.Locations.AddOrUpdate(x => x.Name, loc1, loc2, loc3);
+
+            //Tables
+            context.Tables.AddOrUpdate(x => x.Name,
+                new Table { Name = "1. sztal", Location = loc1},
+                new Table { Name = "2. sztal", Location = loc1 },
+                new Table { Name = "3. sztal", Location = loc2 },
+                new Table { Name = "4. sztal", Location = loc2},
+                new Table { Name = "5. sztal", Location = loc3 },
+                new Table { Name = "6. sztal", Location = loc3 }
+                );
+
             var user = new ApplicationUser { UserName = "lehel@lehel.com", Email = "lehel@lehel.com" };
 
             var store = new UserStore<ApplicationUser>(context);

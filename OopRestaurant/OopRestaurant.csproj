@@ -214,12 +214,22 @@
     <Compile Include="Migrations\201902061840531_add required to MenuItem.Category.Designer.cs">
       <DependentUpon>201902061840531_add required to MenuItem.Category.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902091427457_add Table and Location.cs" />
+    <Compile Include="Migrations\201902091427457_add Table and Location.Designer.cs">
+      <DependentUpon>201902091427457_add Table and Location.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902091437107_add Table.IsNonSmoking.cs" />
+    <Compile Include="Migrations\201902091437107_add Table.IsNonSmoking.Designer.cs">
+      <DependentUpon>201902091437107_add Table.IsNonSmoking.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Location.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MenuItem.cs" />
+    <Compile Include="Models\Table.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -332,6 +342,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902061840531_add required to MenuItem.Category.resx">
       <DependentUpon>201902061840531_add required to MenuItem.Category.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902091427457_add Table and Location.resx">
+      <DependentUpon>201902091427457_add Table and Location.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902091437107_add Table.IsNonSmoking.resx">
+      <DependentUpon>201902091437107_add Table.IsNonSmoking.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
