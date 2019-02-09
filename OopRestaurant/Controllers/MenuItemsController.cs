@@ -29,11 +29,16 @@ namespace OopRestaurant.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             MenuItem menuItem = db.MenuItems.Find(id);
+
             if (menuItem == null)
             {
                 return HttpNotFound();
             }
+
+            GetEntryAndLoadCategory(menuItem);
+
             return View(menuItem);
         }
         #endregion Public Actions
@@ -122,12 +127,7 @@ namespace OopRestaurant.Controllers
         {
             var category = db.Categories.Find(menuItem.CategoryId);
 
-            db.MenuItems.Attach(menuItem);
-
-            var menuItemEntry = db.Entry(menuItem);
-
-            menuItemEntry.Reference(x => x.Category)
-                         .Load();
+            var menuItemEntry = GetEntryAndLoadCategory(menuItem);
 
             menuItem.Category = category;
 
@@ -146,6 +146,17 @@ namespace OopRestaurant.Controllers
             return View(menuItem);
         }
 
+        private System.Data.Entity.Infrastructure.DbEntityEntry<MenuItem> GetEntryAndLoadCategory(MenuItem menuItem)
+        {
+            db.MenuItems.Attach(menuItem);
+
+            var menuItemEntry = db.Entry(menuItem);
+
+            menuItemEntry.Reference(x => x.Category)
+                         .Load();
+            return menuItemEntry;
+        }
+
         // GET: MenuItems/Delete/5
         [Authorize]
         public ActionResult Delete(int? id)
@@ -154,11 +165,16 @@ namespace OopRestaurant.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             MenuItem menuItem = db.MenuItems.Find(id);
+
             if (menuItem == null)
             {
                 return HttpNotFound();
             }
+
+            GetEntryAndLoadCategory(menuItem);
+
             return View(menuItem);
         }
 
