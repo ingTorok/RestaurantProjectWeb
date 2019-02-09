@@ -163,7 +163,7 @@ namespace OopRestaurant.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Menu"); // Lehel
                 }
                 AddErrors(result);
             }
@@ -392,7 +392,7 @@ namespace OopRestaurant.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Menu"); //Lehel
         }
 
         //
@@ -449,7 +449,7 @@ namespace OopRestaurant.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Menu"); //After Login we will go to menu Lehel
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

@@ -1,4 +1,6 @@
-﻿namespace OopRestaurant.Models
+﻿using System.Collections.Generic;
+
+namespace OopRestaurant.Models
 {
     public class Location
     {
@@ -7,5 +9,7 @@
         public string Name { get; set; }
 
         public bool IsNonSmoking { get; set; }
+
+        public virtual List<Table> Tables { get; set; }
     }
 }
