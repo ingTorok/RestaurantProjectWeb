@@ -78,36 +78,41 @@ namespace OopRestaurant.Migrations
             var store = new UserStore<ApplicationUser>(context);
             var manager = new ApplicationUserManager(store);
 
-            var result = manager.Create(user, "aA!1234");
+            var userExists = manager.FindByEmail(user.Email);
 
-            if (!result.Succeeded)
+            if (null == userExists)
             {
-                //var errorMessage = "";
-                //
-                ////Solutiion 1
-                //foreach (var error in result.Errors)
-                //{
-                //    if (string.IsNullOrEmpty(errorMessage))
-                //    {
-                //        errorMessage = error;
-                //    }
-                //    else
-                //    {
-                //        errorMessage = errorMessage + ", ";
-                //    }
-                //}
+                var result = manager.Create(user, "aA!1234");
 
-                ////Solution 2 with less rows
-                //foreach (var error in result.Errors)
-                //{
-                //    errorMessage = errorMessage
-                //        + (string.IsNullOrEmpty(errorMessage) ? "" : ", ")
-                //        + error;
-                //}
+                if (!result.Succeeded)
+                {
+                    //var errorMessage = "";
+                    //
+                    ////Solutiion 1
+                    //foreach (var error in result.Errors)
+                    //{
+                    //    if (string.IsNullOrEmpty(errorMessage))
+                    //    {
+                    //        errorMessage = error;
+                    //    }
+                    //    else
+                    //    {
+                    //        errorMessage = errorMessage + ", ";
+                    //    }
+                    //}
 
-                //Solution 3 with 1 row
-                throw new Exception(string.Join(", ", result.Errors));
+                    ////Solution 2 with less rows
+                    //foreach (var error in result.Errors)
+                    //{
+                    //    errorMessage = errorMessage
+                    //        + (string.IsNullOrEmpty(errorMessage) ? "" : ", ")
+                    //        + error;
+                    //}
 
+                    //Solution 3 with 1 row
+                    throw new Exception(string.Join(", ", result.Errors));
+
+                }
             }
 
         }
