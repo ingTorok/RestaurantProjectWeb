@@ -58,7 +58,7 @@ namespace OopRestaurant.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Remember me?")] //just change the name to change text on display
         public bool RememberMe { get; set; }
     }
 

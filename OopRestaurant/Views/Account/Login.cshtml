@@ -1,7 +1,7 @@
 ﻿@using OopRestaurant.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Log in"; //Bejelentkezes itt kell mas nevre atirni
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -11,7 +11,7 @@
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
+                <h4>Use a local account to log in.</h4> //Itt lehet mas nyelvre atirni
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
@@ -32,13 +32,13 @@
                     <div class="col-md-offset-2 col-md-10">
                         <div class="checkbox">
                             @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+                            @Html.LabelFor(m => m.RememberMe) <!--f12 go there and change text-->
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
+                        <input type="submit" value="Log in" class="btn btn-default" /> <!--at value can we change the text on botton-->
                     </div>
                 </div>
                 <p>
@@ -51,6 +51,8 @@
             }
         </section>
     </div>
+
+    <!--login with external ex. Facebook Linkedin-->
     <div class="col-md-4">
         <section id="socialLoginForm">
             @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
