@@ -81,12 +81,12 @@ namespace OopRestaurant.Migrations
 
             //Tables
             context.Tables.AddOrUpdate(x => x.Name,
-                new Table { Name = "1. sztal", Location = loc1},
-                new Table { Name = "2. sztal", Location = loc1 },
-                new Table { Name = "3. sztal", Location = loc2 },
-                new Table { Name = "4. sztal", Location = loc2},
-                new Table { Name = "5. sztal", Location = loc3 },
-                new Table { Name = "6. sztal", Location = loc3 }
+                new Table { Name = "1. asztal", Location = loc1},
+                new Table { Name = "2. asztal", Location = loc1 },
+                new Table { Name = "3. asztal", Location = loc2 },
+                new Table { Name = "4. asztal", Location = loc2},
+                new Table { Name = "5. asztal", Location = loc3 },
+                new Table { Name = "6. asztal", Location = loc3 }
                 );
 
             var user = new ApplicationUser { UserName = "lehel@lehel.com", Email = "lehel@lehel.com" };
