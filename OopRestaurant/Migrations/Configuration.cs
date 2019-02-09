@@ -1,5 +1,7 @@
 namespace OopRestaurant.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using OopRestaurant.Models;
     using System;
     using System.Data.Entity;
@@ -70,6 +72,43 @@ namespace OopRestaurant.Migrations
                 Price = 5000,
                 Category = category2
             });
+
+            var user = new ApplicationUser { UserName = "lehel@lehel.com", Email = "lehel@lehel.com" };
+
+            var store = new UserStore<ApplicationUser>(context);
+            var manager = new ApplicationUserManager(store);
+
+            var result = manager.Create(user, "aA!1234");
+
+            if (!result.Succeeded)
+            {
+                //var errorMessage = "";
+                //
+                ////Solutiion 1
+                //foreach (var error in result.Errors)
+                //{
+                //    if (string.IsNullOrEmpty(errorMessage))
+                //    {
+                //        errorMessage = error;
+                //    }
+                //    else
+                //    {
+                //        errorMessage = errorMessage + ", ";
+                //    }
+                //}
+
+                ////Solution 2 with less rows
+                //foreach (var error in result.Errors)
+                //{
+                //    errorMessage = errorMessage
+                //        + (string.IsNullOrEmpty(errorMessage) ? "" : ", ")
+                //        + error;
+                //}
+
+                //Solution 3 with 1 row
+                throw new Exception(string.Join(", ", result.Errors));
+
+            }
 
         }
     }
