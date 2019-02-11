@@ -101,16 +101,29 @@ namespace OopRestaurant.Controllers
         {
             if (ModelState.IsValid)
             {
+                //a version when the Location is NOT virtual
+                //var location = db.Locations.Find(table.LocationId);
+                //db.Tables.Attach(table);
+                //var tableEntry = db.Entry(table);
+                //tableEntry.Reference(x => x.Location)
+                //    .Load();
+                //table.Location = location;
+                //db.Entry(table).State = EntityState.Modified;
+
+                //a second version when the Location is not virtual
+                //var tableToUpdate = db.Tables
+                //                      .Include(x => x.Location)
+                //                      .FirstOrDefault(x => x.Id == table.Id);
+
+
+                //a version when the Location property IS virtual
                 var location = db.Locations.Find(table.LocationId);
+                //seach in the db the Table item, we will change in db and not in the memory
+                var tableToUpdate = db.Tables.Find(table.Id);
+                tableToUpdate.Name = table.Name;
 
-                db.Tables.Attach(table);
-                var tableEntry = db.Entry(table);
-                tableEntry.Reference(x => x.Location)
-                    .Load();
+                tableToUpdate.Location = location;
 
-                table.Location = location;
-
-                db.Entry(table).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
