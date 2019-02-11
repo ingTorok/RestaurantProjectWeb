@@ -38,7 +38,10 @@ namespace OopRestaurant.Controllers
         // GET: Tables/Create
         public ActionResult Create()
         {
-            return View();
+            var table = new Table();
+            FillAssignableLocations(table);
+
+            return View(table);
         }
 
         // POST: Tables/Create
@@ -46,10 +49,13 @@ namespace OopRestaurant.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] Table table)
+        public ActionResult Create([Bind(Include = "Id,Name,LocationId")] Table table)
         {
             if (ModelState.IsValid)
             {
+                var location = db.Locations.Find(table.LocationId);
+
+                table.Location = location;
                 db.Tables.Add(table);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -66,6 +72,11 @@ namespace OopRestaurant.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Table table = db.Tables.Find(id);
+
+            FillAssignableLocations(table);
+
+            table.LocationId = table.Location.Id;
+
             if (table == null)
             {
                 return HttpNotFound();
@@ -73,15 +84,32 @@ namespace OopRestaurant.Controllers
             return View(table);
         }
 
+        private void FillAssignableLocations(Table table)
+        {
+            table.AssignableLocations = db.Locations
+                                          .Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() })
+                                          .ToList()
+                                          ;
+        }
+
         // POST: Tables/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Table table)
+        public ActionResult Edit([Bind(Include = "Id,Name,LocationId")] Table table)
         {
             if (ModelState.IsValid)
             {
+                var location = db.Locations.Find(table.LocationId);
+
+                db.Tables.Attach(table);
+                var tableEntry = db.Entry(table);
+                tableEntry.Reference(x => x.Location)
+                    .Load();
+
+                table.Location = location;
+
                 db.Entry(table).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
