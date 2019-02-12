@@ -10,7 +10,7 @@ using OopRestaurant.Models;
 
 namespace OopRestaurant.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin,cook")]
     public class CategoriesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

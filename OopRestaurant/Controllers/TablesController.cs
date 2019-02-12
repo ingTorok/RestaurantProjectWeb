@@ -10,6 +10,7 @@ using OopRestaurant.Models;
 
 namespace OopRestaurant.Controllers
 {
+    [Authorize(Roles ="admin,waiter")]
     public class TablesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -28,6 +29,8 @@ namespace OopRestaurant.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Table table = db.Tables.Find(id);
+            FillAssignableLocations(table);
+
             if (table == null)
             {
                 return HttpNotFound();
@@ -75,8 +78,6 @@ namespace OopRestaurant.Controllers
 
             FillAssignableLocations(table);
 
-            table.LocationId = table.Location.Id;
-
             if (table == null)
             {
                 return HttpNotFound();
@@ -90,6 +91,10 @@ namespace OopRestaurant.Controllers
                                           .Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() })
                                           .ToList()
                                           ;
+            if (table.Location!=null)
+            {
+                table.LocationId = table.Location.Id;
+            }
         }
 
         // POST: Tables/Edit/5
@@ -138,6 +143,8 @@ namespace OopRestaurant.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Table table = db.Tables.Find(id);
+            FillAssignableLocations(table);
+
             if (table == null)
             {
                 return HttpNotFound();

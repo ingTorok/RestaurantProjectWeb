@@ -81,15 +81,46 @@ namespace OopRestaurant.Migrations
 
             //Tables
             context.Tables.AddOrUpdate(x => x.Name,
-                new Table { Name = "1. asztal", Location = loc1},
+                new Table { Name = "1. asztal", Location = loc1 },
                 new Table { Name = "2. asztal", Location = loc1 },
                 new Table { Name = "3. asztal", Location = loc2 },
-                new Table { Name = "4. asztal", Location = loc2},
+                new Table { Name = "4. asztal", Location = loc2 },
                 new Table { Name = "5. asztal", Location = loc3 },
                 new Table { Name = "6. asztal", Location = loc3 }
                 );
 
-            var user = new ApplicationUser { UserName = "lehel@lehel.com", Email = "lehel@lehel.com" };
+            AddRoleIfNotExists(context, "admin");
+            AddRoleIfNotExists(context, "cook");
+            AddRoleIfNotExists(context, "waiter");
+
+            AddUserIfNotExists(context, "lehel@lehel.com", "lehel@lehel.com", "admin,cook,waiter");
+            AddUserIfNotExists(context, "szakacs@szakacs.com", "szakacs@szakacs.com", "cook");
+            AddUserIfNotExists(context, "pincer@pincer.com", "pincer@pincer.com", "waiter");
+            
+        }
+
+        private void AddRoleIfNotExists(ApplicationDbContext context, string roleName)
+        {
+            var store = new RoleStore<IdentityRole>(context);
+            var manager = new RoleManager<IdentityRole>(store);
+
+            var roleExist = manager.FindByName(roleName);
+
+            if (roleExist==null)
+            {
+                var role = new IdentityRole(roleName);
+                var result = manager.Create(role);
+
+                if (!result.Succeeded)
+                {
+                    throw new Exception(string.Join(", ", result.Errors));
+                }
+            }
+        }
+
+        private static void AddUserIfNotExists(ApplicationDbContext context, string userName, string email, string roles)
+        {
+            var user = new ApplicationUser { UserName = userName, Email = email };
 
             var store = new UserStore<ApplicationUser>(context);
             var manager = new ApplicationUserManager(store);
@@ -129,8 +160,12 @@ namespace OopRestaurant.Migrations
                     throw new Exception(string.Join(", ", result.Errors));
 
                 }
+                foreach (var role in roles.Split(','))
+                {
+                    manager.AddToRole(user.Id, role);
+                } 
+ 
             }
-
         }
     }
 }

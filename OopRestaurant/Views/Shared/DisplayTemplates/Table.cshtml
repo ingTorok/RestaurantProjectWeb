@@ -11,4 +11,12 @@
         @Html.DisplayFor(model => model.Name)
     </dd>
 
+    <dt>
+        @Html.DisplayNameFor(model => model.Location)
+    </dt>
+
+    <dd>
+        @Html.DropDownListFor(model => model.LocationId, Model.AssignableLocations, " --- ", new { @class = "from-control", disabled = "disabled" })
+    </dd>
+
 </dl>

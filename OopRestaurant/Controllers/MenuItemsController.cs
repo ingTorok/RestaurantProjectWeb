@@ -47,7 +47,7 @@ namespace OopRestaurant.Controllers
         /// <summary>
         /// Only logged in useres can create
         /// </summary>
-        [Authorize]
+        [Authorize(Roles ="admin,cook")]
         // GET: MenuItems/Create
         public ActionResult Create()
         {
@@ -71,7 +71,7 @@ namespace OopRestaurant.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "admin,cook")]
         public ActionResult Create([Bind(Include = "Id,Name,Description,Price,CategoryId")] MenuItem menuItem)
         {
             var category = db.Categories.Find(menuItem.CategoryId);
@@ -94,7 +94,7 @@ namespace OopRestaurant.Controllers
         }
 
         // GET: MenuItems/Edit/5
-        [Authorize]
+        [Authorize(Roles = "admin,cook")]
         public ActionResult Edit(int? id)
         {
 
@@ -122,7 +122,7 @@ namespace OopRestaurant.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "admin,cook")]
         public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,CategoryId")] MenuItem menuItem)
         {
             var category = db.Categories.Find(menuItem.CategoryId);
@@ -158,7 +158,7 @@ namespace OopRestaurant.Controllers
         }
 
         // GET: MenuItems/Delete/5
-        [Authorize]
+        [Authorize(Roles = "admin,cook")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -181,7 +181,7 @@ namespace OopRestaurant.Controllers
         // POST: MenuItems/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "admin,cook")]
         public ActionResult DeleteConfirmed(int id)
         {
             MenuItem menuItem = db.MenuItems.Find(id);

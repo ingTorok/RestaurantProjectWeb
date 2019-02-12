@@ -10,6 +10,7 @@ using OopRestaurant.Models;
 
 namespace OopRestaurant.Controllers
 {
+    [Authorize(Roles ="admin,waiter")]
     public class LocationsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
